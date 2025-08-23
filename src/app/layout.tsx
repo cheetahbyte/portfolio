@@ -51,6 +51,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LightStoreProvider>{children}</LightStoreProvider>
+        <script
+          src="https://kroete.orbiq.services/api/script.js"
+          data-site-id="5"
+          defer
+        ></script>
       </body>
     </html>
   );
