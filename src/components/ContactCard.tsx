@@ -40,6 +40,7 @@ export default function ContactCard() {
           href={`mailto:${EMAIL}`}
           className="inline-flex items-center gap-2 rounded-xl px-4 py-2 font-medium
                      bg-white text-black hover:bg-gray-200 transition"
+          data-rybbit-event="email_href" 
         >
           <Mail className="size-4" />
           Email me
@@ -49,6 +50,7 @@ export default function ContactCard() {
         <button
           type="button"
           onClick={copy}
+          data-rybbit-event="email_copy" 
           className="inline-flex items-center gap-2 rounded-xl px-4 py-2 font-medium
                      bg-white/10 hover:bg-white/20 transition"
         >
