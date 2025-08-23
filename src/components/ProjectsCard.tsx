@@ -11,7 +11,7 @@ export default function ProjectsCard() {
   return (
     <section
       className="col-start-4 row-start-1 col-span-1 row-span-2 p-4 rounded-2xl
-                 bg-neutral-900/80 border border-neutral-800
+                 bg-neutral-900/80 
                  text-white/90 flex flex-col"
       aria-labelledby="projects"
     >
