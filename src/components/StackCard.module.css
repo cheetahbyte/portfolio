@@ -1,0 +1,29 @@
+.marquee {
+  overflow: hidden;
+  position: relative;
+}
+
+/* flex track that will scroll */
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+/* each panel holds one copy of icons */
+.panel {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-inline: 0.5rem;
+}
+
+/* smooth continuous loop */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

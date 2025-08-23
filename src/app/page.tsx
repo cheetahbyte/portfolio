@@ -9,6 +9,9 @@ import StatCard from "@/components/StatCard";
 import LightSwitchCard from "@/components/LightSwitch";
 import { useLightStore } from "@/store/Light";
 import LightSource from "@/components/LightSource";
+import AgeCard from "@/components/AgeCard";
+import ContactCard from "@/components/ContactCard";
+import ProjectsCard from "@/components/ProjectsCard";
 
 function Placeholder({ label = "", className = "" }) {
   return (
@@ -39,19 +42,15 @@ export default function Home() {
           {/* Row 2 */}
           <LocationCard  />
           
-          <Placeholder label="E" className="col-start-2 row-start-2 col-span-1" />
-          <Placeholder label="F" className="col-start-3 row-start-2 col-span-1" />
+          <AgeCard/>
           <StatCard/>
           <StackCard/>
           
 
           {/* Row 3 */}
-          <Placeholder label="I" className="col-start-3 row-start-3 col-span-1" />
-         
-          <Placeholder label="I" className="col-start-3 row-start-3 col-span-1" />
-          <Placeholder label="ABC" className="col-start-4 row-start-1 col-span-1 row-span-2" />
+          <ProjectsCard/>
           <LightSwitchCard/>
-          <Placeholder label="J" className="col-start-4 row-start-3 col-span-2" />
+          <ContactCard/>
         </div>
       </main>
     </div>
