@@ -1,22 +1,25 @@
 "use client";
 
-import { useCallback, useState  } from "react";
+import { useLightStore } from "@/store/LightProvider";
+import { useCallback, useState } from "react";
 
 export default function LightSwitchCard() {
   const [isOn, setIsOn] = useState(false);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: abc
-  const toggle = useCallback(() => {setIsOn(v => !v); play()}, []);
-
+  const toggle = useCallback(() => {
+    setIsOn((v) => !v);
+    play();
+  }, []);
+  const { toggle: toggleLight } = useLightStore((state) => state);
   function play() {
-    var audio = document.getElementById('a1') as HTMLAudioElement;
+    toggleLight();
+    var audio = document.getElementById("a1") as HTMLAudioElement;
     audio?.play();
   }
 
   return (
-    <section
-      className="rounded-2xl bg-[#171717] text-white/90 col-start-3 row-start-3 row-span-1 col-span-1 p-6 flex items-center justify-center"
-    >
+    <section className="rounded-2xl bg-[#171717] text-white/90 col-start-3 row-start-3 row-span-1 col-span-1 p-6 flex items-center justify-center">
       {/* Switch frame */}
       <div className="relative w-full h-full">
         {/* Outer bezel */}
@@ -72,8 +75,14 @@ export default function LightSwitchCard() {
           />
         </button>
       </div>
-      <audio id='a1' src='/click.mp3'>
-        <track kind="captions" src="/click-captions.vtt" srcLang="en" label="English captions" default />
+      <audio id="a1" src="/click.mp3">
+        <track
+          kind="captions"
+          src="/click-captions.vtt"
+          srcLang="en"
+          label="English captions"
+          default
+        />
       </audio>
     </section>
   );
