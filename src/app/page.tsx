@@ -55,7 +55,7 @@ export default function Home() {
           <Placeholder label="I" className="col-start-3 row-start-3 col-span-1" />
           <Placeholder label="ABC" className="col-start-4 row-start-1 col-span-1 row-span-2" />
           <LightSwitchCard/>
-          <Placeholder label="J" className="col-start-3 row-start-3 col-span-2" />
+          <Placeholder label="J" className="col-start-4 row-start-3 col-span-2" />
         </div>
       </main>
     </div>
