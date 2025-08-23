@@ -25,7 +25,7 @@ export default function LocalTimeCard() {
   ];
 
   return (
-    <section className="rounded-2xl bg-[#171717] text-white/90 col-span-2 row-span-1 p-6 row-start-3 col-start-1">
+    <section className="rounded-2xl bg-[#171717] text-white/90 col-span-2 md:col-span-2 row-span-1 p-6 md:row-start-3 md:col-start-1">
       <h2 className="text-3xl mb-2">My Tech-Stack</h2>
 
       <div className={`relative overflow-hidden w-full h-[64px] p-4 ${styles.marquee}`}>

@@ -18,7 +18,7 @@ export default function ContactCard() {
 
   return (
     <section
-      className="col-start-4 row-start-3 col-span-2 p-6 rounded-2xl bg-[#171717] text-white/90 flex flex-col gap-4"
+      className="col-span-2 md:col-start-4 md:row-start-3 md:col-span-2 p-6 rounded-2xl bg-[#171717] text-white/90 flex flex-col gap-4"
       aria-labelledby="contact-title"
     >
       {/* Header */}

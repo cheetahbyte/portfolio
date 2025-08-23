@@ -40,7 +40,7 @@ export default async function StatCard() {
   const pretty = formatDuration(secs);
 
   return (
-    <section className="rounded-2xl bg-[#171717] text-white/90 col-start-2 row-start-2 col-span-1 row-span-1 p-6">
+    <section className="rounded-2xl bg-[#171717] text-white/90 md:col-start-2 md:row-start-2 col-span-1 row-span-1 p-6">
       <ChartBar size={40} className="mb-4" />
       <h2 className="text-3xl mb-1">{pretty}</h2>
       <span className="text-gray-500">coded this week</span>

@@ -1,21 +1,43 @@
-import { Code2, ArrowUpRight, ArrowRight, Flag, PiggyBank } from "lucide-react";
-import Image from "next/image"
+import { ArrowRight, ArrowUpRight, Code2, Flag, PiggyBank } from "lucide-react";
+import Image from "next/image";
 
 export default function ProjectsCard() {
   const projects = [
-    { title: "flagly.pro", link: "https://flagly.dev", element: <Image alt="flagly logo" width={20} height={20} src={"https://www.flagly.dev/icon.svg"}/> },
-    { title: "keinbudget", link: "https://github.com/cheetahbyte/keinbudget", element: <PiggyBank size={20}/> },
-    { title: "flagly", link: "https://github.com/cheetahbyte/flagly", element: <Flag size={20}/>},
+    {
+      title: "flagly.pro",
+      link: "https://flagly.dev",
+      element: (
+        <Image
+          alt="flagly logo"
+          width={20}
+          height={20}
+          src="https://www.flagly.dev/icon.svg"
+        />
+      ),
+    },
+    {
+      title: "keinbudget",
+      link: "https://github.com/cheetahbyte/keinbudget",
+      element: <PiggyBank size={20} />,
+    },
+    {
+      title: "flagly",
+      link: "https://github.com/cheetahbyte/flagly",
+      element: <Flag size={20} />,
+    },
   ];
 
   return (
     <section
-      className="col-start-4 row-start-1 col-span-1 row-span-2 p-4 rounded-2xl
+      className="col-span-2 row-span-2 md:col-start-4 md:row-start-1 md:col-span-1 md:row-span-2 p-4 rounded-2xl
                  bg-neutral-900/80 
                  text-white/90 flex flex-col"
       aria-labelledby="projects"
     >
-      <h2 id="projects" className="text-lg font-semibold flex items-center gap-2 mb-3">
+      <h2
+        id="projects"
+        className="text-lg font-semibold flex items-center gap-2 mb-3"
+      >
         <Code2 className="size-4" />
         Projects
       </h2>
@@ -36,7 +58,9 @@ export default function ProjectsCard() {
           >
             {/* Left side: Emoji and Title */}
             <div className="flex items-center gap-3">
-              <span className="text-lg bg-neutral-800/70 p-1 rounded-md">{p.element}</span>
+              <span className="text-lg bg-neutral-800/70 p-1 rounded-md">
+                {p.element}
+              </span>
               <span className="text-sm font-medium truncate">{p.title}</span>
             </div>
 

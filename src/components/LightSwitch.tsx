@@ -19,7 +19,7 @@ export default function LightSwitchCard() {
   }
 
   return (
-    <section className="rounded-2xl bg-[#171717] text-white/90 col-start-3 row-start-3 row-span-1 col-span-1 p-6 flex items-center justify-center">
+    <section className="hidden md:flex rounded-2xl bg-[#171717] text-white/90 md:col-start-3 md:row-start-3 row-span-1 col-span-1 p-6 items-center justify-center">
       {/* Switch frame */}
       <div className="relative w-full h-full">
         {/* Outer bezel */}
