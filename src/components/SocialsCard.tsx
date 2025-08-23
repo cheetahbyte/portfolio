@@ -35,32 +35,29 @@ export default function SocialsCard({
 }) {
   return (
     <section
-      className={`relative rounded-2xl text-white/90 bg-[#0c0c0c] ${className}`}
+      className={`rounded-2xl text-white/90 bg-[#0c0c0c] grid grid-cols-2 grid-rows-2 gap-4 ${className}`}
     >
-      <div className="absolute top-4 left-4">
-        <Button
-          name="github"
-          icon={<SiGithub size={35} />}
-          href="https://github.com/cheetahbyte"
-          label="GitHub"
-        />
-      </div>
-      <div className="absolute top-4 right-4">
-        <Button
-          name="discord"
-          icon={<SiDiscord size={35} />}
-          href="https://discord.com/users/545238456645845023"
-          label="Discord"
-        />
-      </div>
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
-        <Button
-          name="linkedin"
-          icon={<Linkedin size={35} />}
-          href="https://www.linkedin.com/in/leonhard-breuer-866a2a280/"
-          label="LinkedIn"
-        />
-      </div>
+      <Button
+        name="github"
+        icon={<SiGithub size={35} />}
+        href="https://github.com/cheetahbyte"
+        label="GitHub"
+      />
+      <Button
+        name="discord"
+        icon={<SiDiscord size={35} />}
+        href="https://discord.com/users/545238456645845023"
+        label="Discord"
+      />
+      {/* LinkedIn stays left */}
+      <Button
+        name="linkedin"
+        icon={<Linkedin size={35} />}
+        href="https://www.linkedin.com/in/leonhard-breuer-866a2a280/"
+        label="LinkedIn"
+      />
+      {/* Empty placeholder to balance grid */}
+      <div></div>
     </section>
   );
 }

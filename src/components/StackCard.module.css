@@ -3,14 +3,34 @@
   position: relative;
 }
 
-/* flex track that will scroll */
+/* Fade edges */
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 3rem;          /* how wide the fade is */
+  height: 100%;
+  z-index: 2;           /* keep above icons */
+  pointer-events: none; /* allow clicks through */
+}
+
+.marquee::before {
+  left: 0;
+  background: linear-gradient(to right, #171717, transparent);
+}
+
+.marquee::after {
+  right: 0;
+  background: linear-gradient(to left, #171717, transparent);
+}
+
 .track {
   display: flex;
   width: max-content;
   animation: scroll 20s linear infinite;
 }
 
-/* each panel holds one copy of icons */
 .panel {
   display: flex;
   align-items: center;
@@ -18,7 +38,6 @@
   padding-inline: 0.5rem;
 }
 
-/* smooth continuous loop */
 @keyframes scroll {
   from {
     transform: translateX(0);
