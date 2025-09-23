@@ -9,13 +9,15 @@ export default function LightSwitchCard() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: abc
   const toggle = useCallback(() => {
     setIsOn((v) => !v);
-    play();
+    handleToggle();
   }, []);
-  const { toggle: toggleLight } = useLightStore((state) => state);
-  function play() {
+  const { toggle: toggleLight, toggled } = useLightStore((state) => state);
+  function handleToggle() {
+    const on = document.getElementById("on") as HTMLAudioElement;
+    const off = document.getElementById("off") as HTMLAudioElement;
+    if (!toggled) on.play();
+    else off.play();
     toggleLight();
-    var audio = document.getElementById("a1") as HTMLAudioElement;
-    audio?.play();
   }
 
   return (
@@ -75,7 +77,16 @@ export default function LightSwitchCard() {
           />
         </button>
       </div>
-      <audio id="a1" src="/click.mp3">
+      <audio id="on" src="/light-switch_on-cutted.mp3">
+        <track
+          kind="captions"
+          src="/click-captions.vtt"
+          srcLang="en"
+          label="English captions"
+          default
+        />
+      </audio>
+      <audio id="off" src="/click.mp3">
         <track
           kind="captions"
           src="/click-captions.vtt"
