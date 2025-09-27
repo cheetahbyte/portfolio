@@ -1,4 +1,6 @@
 import {
+  SiArgo,
+  SiCaddy,
   SiDocker,
   SiGit,
   SiGo,
@@ -24,6 +26,8 @@ export default function LocalTimeCard() {
     <SiGit key="git" size={35} />,
     <SiDocker key="docker" size={35} />,
     <SiKubernetes key="kubernetes" size={35} />,
+    <SiCaddy key="caddy" size={35} />,
+    <SiArgo key="argo" size={35} />,
   ];
 
   return (
