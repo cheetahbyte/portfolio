@@ -22,6 +22,9 @@ const config = defineConfig({
       },
     }),
   ],
+  build: {
+    outDir: "dist",
+  }
 })
 
 export default config
