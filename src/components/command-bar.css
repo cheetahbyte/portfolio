@@ -149,14 +149,19 @@
     display: none !important;
   }
 }
-
 @media (max-width: 768px) {
-  /* 1. Hide all shortcuts on mobile */
+  /* 1. Move the bar to the top */
+  .cmd-wrapper {
+    bottom: auto; /* Remove the 3rem bottom setting */
+    top: 1rem;    /* Position it at the top */
+  }
+
+  /* 2. Hide all shortcuts on mobile */
   .nav-shortcut {
     display: none !important;
   }
 
-  /* 2. Force the bar to be permanently extended */
+  /* 3. Force the bar to be permanently extended */
   .nav-link.is-hidden {
     width: auto !important;
     opacity: 1 !important;
@@ -165,26 +170,26 @@
     margin-right: 4px;
   }
 
-  /* 3. Adjust width to 'auto' so links don't take up too much room */
+  /* 4. Adjust width and layout */
   .nav-link {
     width: auto;
-    min-width: 40px; /* Ensures enough room for icons */
+    min-width: 40px;
     gap: 6px;
   }
 
-  /* 4. Ensure text is always visible on mobile */
   .nav-text {
     display: inline;
     opacity: 1;
   }
 
-  /* 5. Reduce container padding slightly for smaller screens */
+  /* 5. Adjust container */
   .cmd-container {
     padding: 4px;
-    bottom: 1.5rem; /* Moves it closer to the bottom on mobile */
+    /* Ensure the shadow doesn't look cut off at the top */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 
   .cmd-divider {
-    margin: 0 6px; /* Tighter spacing for mobile */
+    margin: 0 6px;
   }
 }

@@ -1,4 +1,3 @@
-// src/sections/Home.tsx
 import { useStore } from '@tanstack/react-store'
 import { appStore } from '@/lib/store'
 import { MapPin, Github, Mail } from 'lucide-react'
@@ -11,11 +10,8 @@ function formatKeyfacts(keyfacts: HomeApiResponse['keyfacts']) {
 
 export default function Home({ data }: { data: HomeApiResponse }) {
   const focusMode = useStore(appStore, (s) => s.focusMode)
-
-  const fullName = `${data.name.first} ${data.name.last}`
   const keyfactsLine = formatKeyfacts(data.keyfacts)
 
-  // Mapping the new structured technical data
   const technicalCategories = [
     { label: 'Languages', values: data.technical.languages },
     { label: 'Frameworks', values: data.technical.frameworks },
@@ -23,12 +19,10 @@ export default function Home({ data }: { data: HomeApiResponse }) {
   ]
 
   return (
-    <div
-      className={`animate-in fade-in slide-in-from-bottom-4 duration-700 ${
-        focusMode ? 'text-center min-h-[calc(100vh-8rem)] flex flex-col justify-center' : ''
-      }`}
-    >
-      <section className={`${focusMode ? 'mb-0' : 'mb-32'}`}>
+    <div className={`animate-in fade-in slide-in-from-bottom-4 duration-700 ${focusMode ? 'text-center min-h-[calc(100vh-8rem)] flex flex-col justify-center' : ''}`}>
+
+      {/* 1. Adjusted mb-32 to mb-12 on mobile */}
+      <section className={`${focusMode ? 'mb-0' : 'mb-12 md:mb-32'}`}>
         {!focusMode && (
           <div className="flex items-center gap-2 mb-6">
             <MapPin size={14} className="text-[#0E4D47]" />
@@ -38,11 +32,7 @@ export default function Home({ data }: { data: HomeApiResponse }) {
           </div>
         )}
 
-        <h1
-          className={`text-5xl md:text-8xl font-bold tracking-tight mb-8 leading-[0.85] transition-colors ${
-            focusMode ? 'text-white' : 'text-[#1A1A1A]'
-          }`}
-        >
+        <h1 className={`text-5xl md:text-8xl font-bold tracking-tight mb-8 leading-[0.85] transition-colors ${focusMode ? 'text-white' : 'text-[#1A1A1A]'}`}>
           {data.name.first} <br />
           <span className={`italic transition-colors ${focusMode ? 'text-white/60' : 'text-[#0E4D47]'}`}>
             {data.name.last}.
@@ -61,13 +51,13 @@ export default function Home({ data }: { data: HomeApiResponse }) {
       </section>
 
       {!focusMode && (
-        <section className="grid md:grid-cols-2 gap-12 border-t pt-12 transition-colors border-black/[0.03]">
+        /* 2. Adjusted pt-12 to pt-8 on mobile and removed gap-12 for tighter mobile spacing */
+        <section className="grid md:grid-cols-2 gap-8 md:gap-12 border-t pt-8 md:pt-12 transition-colors border-black/[0.03]">
           <div>
             <h2 className="font-mono text-xs uppercase tracking-widest text-gray-400 mb-6 underline decoration-[#0E4D47] underline-offset-4">
               Technical Profile
             </h2>
             <ul className="space-y-3 font-mono text-sm">
-              {/* Dynamically render the new technical categories */}
               {technicalCategories.map((cat) => (
                 <li key={cat.label} className="flex justify-between border-b pb-1 border-black/[0.02]">
                   <span>{cat.label}:</span>
@@ -79,7 +69,7 @@ export default function Home({ data }: { data: HomeApiResponse }) {
             </ul>
           </div>
 
-          <div className="flex flex-col justify-end">
+          <div className="flex-col mt-4 md:mt-0 hidden md:flex">
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
               {data.phrase ? (
                 <>
@@ -91,23 +81,8 @@ export default function Home({ data }: { data: HomeApiResponse }) {
             </p>
 
             <div className="flex gap-4">
-              <a
-                href="https://github.com/cheetahbyte"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47] text-[#1A1A1A]"
-                aria-label="GitHub"
-              >
-                <Github size={18} />
-              </a>
-
-              <a
-                href="mailto:hello@leonhardbreuer.de"
-                className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47] text-[#1A1A1A]"
-                aria-label="Email"
-              >
-                <Mail size={18} />
-              </a>
+              <a href="https://github.com/cheetahbyte" target="_blank" rel="noreferrer" className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47] text-[#1A1A1A]"><Github size={18} /></a>
+              <a href="mailto:hello@leonhardbreuer.de" className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47] text-[#1A1A1A]"><Mail size={18} /></a>
             </div>
           </div>
         </section>

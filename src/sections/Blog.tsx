@@ -64,7 +64,7 @@ export default function Blog() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search entries…"
-          className={`font-mono text-xs px-3 py-2 rounded border outline-none transition-colors ${
+          className={`hidden md:block font-mono text-xs px-3 py-2 rounded border outline-none transition-colors ${
             focusMode
               ? 'bg-white/5 border-white/10 text-white placeholder:text-white/20'
               : 'bg-white border-black/10 text-black placeholder:text-black/30'
