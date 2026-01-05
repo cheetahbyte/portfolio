@@ -7,7 +7,7 @@ export type HomeApiResponse = {
   name: { first: string; last: string }
   keyfacts: Array<string | number>
   rotation: string[]
-  technical: { identity: string; core_stack: string[] }
+  technical: { languages: string[], frameworks: string[], tools: string[] }
   phrase: string
 }
 

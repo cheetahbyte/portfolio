@@ -63,7 +63,7 @@ export default function Blog() {
         <input
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search…"
+          placeholder="Search entries…"
           className={`font-mono text-xs px-3 py-2 rounded border outline-none transition-colors ${
             focusMode
               ? 'bg-white/5 border-white/10 text-white placeholder:text-white/20'

@@ -14,7 +14,13 @@ export default function Home({ data }: { data: HomeApiResponse }) {
 
   const fullName = `${data.name.first} ${data.name.last}`
   const keyfactsLine = formatKeyfacts(data.keyfacts)
-  const coreStack = data.technical.core_stack.join(', ')
+
+  // Mapping the new structured technical data
+  const technicalCategories = [
+    { label: 'Languages', values: data.technical.languages },
+    { label: 'Frameworks', values: data.technical.frameworks },
+    { label: 'Tools', values: data.technical.tools },
+  ]
 
   return (
     <div
@@ -61,12 +67,15 @@ export default function Home({ data }: { data: HomeApiResponse }) {
               Technical Profile
             </h2>
             <ul className="space-y-3 font-mono text-sm">
-              <li className="flex justify-between border-b pb-1 border-black/[0.02]">
-                <span>Identity:</span> <span className="text-[#0E4D47]">{data.technical.identity || fullName}</span>
-              </li>
-              <li className="flex justify-between border-b pb-1 border-black/[0.02]">
-                <span>Core Stack:</span> <span className="text-[#0E4D47]">{coreStack}</span>
-              </li>
+              {/* Dynamically render the new technical categories */}
+              {technicalCategories.map((cat) => (
+                <li key={cat.label} className="flex justify-between border-b pb-1 border-black/[0.02]">
+                  <span>{cat.label}:</span>
+                  <span className="text-[#0E4D47] text-right ml-4">
+                    {cat.values?.join(', ')}
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -74,7 +83,7 @@ export default function Home({ data }: { data: HomeApiResponse }) {
             <p className="text-gray-500 text-sm mb-6 leading-relaxed">
               {data.phrase ? (
                 <>
-                  <span className="text-gray-400">Current phrase:</span> “{data.phrase}”
+                  <span className="text-gray-400 italic">Current phrase:</span> “{data.phrase}”
                 </>
               ) : (
                 'Dedicated to the intersection of clean architecture and minimalist design. Building systems that respect focus.'
@@ -82,12 +91,11 @@ export default function Home({ data }: { data: HomeApiResponse }) {
             </p>
 
             <div className="flex gap-4">
-              {/* Swap these for your real links */}
               <a
                 href="https://github.com/cheetahbyte"
                 target="_blank"
                 rel="noreferrer"
-                className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47]"
+                className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47] text-[#1A1A1A]"
                 aria-label="GitHub"
               >
                 <Github size={18} />
@@ -95,7 +103,7 @@ export default function Home({ data }: { data: HomeApiResponse }) {
 
               <a
                 href="mailto:hello@leonhardbreuer.de"
-                className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47]"
+                className="p-2 border transition-colors rounded border-black/5 hover:border-[#0E4D47] text-[#1A1A1A]"
                 aria-label="Email"
               >
                 <Mail size={18} />

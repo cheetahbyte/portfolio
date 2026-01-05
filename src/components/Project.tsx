@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { ProjectsApiResponse } from '@/routes/projects'
+import { useId } from 'react'
 
 interface ProjectCardProps {
   project: ProjectsApiResponse['projects'][number]
@@ -7,6 +8,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project, focusMode }: ProjectCardProps) => {
+  const id = useId()
   return (
     <a
       href={project.link}
@@ -25,20 +27,22 @@ export const ProjectCard = ({ project, focusMode }: ProjectCardProps) => {
             {project.name}
           </h3>
 
-          <span className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded shrink-0 ${
+          {project.tags.map(tag => <span
+            key={tag+id}
+            className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded shrink-0 ${
             focusMode
               ? 'bg-white/10 text-white/60'
               : 'bg-[#0E4D47]/5 text-[#0E4D47]'
           }`}>
-            {project.tag}
-          </span>
+            {tag}
+          </span>)}
         </div>
 
         {/* Description Row */}
         <p className={`text-sm mt-2 max-w-2xl font-sans ${
           focusMode ? 'text-white/40' : 'text-gray-500'
         }`}>
-          description
+          {project.description}
         </p>
       </div>
 
