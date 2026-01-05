@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react'
-import { ProjectsApiResponse } from '@/routes/projects'
+import {ProjectsApiResponse} from '@/queries/projects'
 import { useId } from 'react'
 
 interface ProjectCardProps {
@@ -27,7 +27,7 @@ export const ProjectCard = ({ project, focusMode }: ProjectCardProps) => {
             {project.name}
           </h3>
 
-          {project.tags.map(tag => <span
+          {project.tags.map((tag: string) => <span
             key={tag+id}
             className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded shrink-0 ${
             focusMode

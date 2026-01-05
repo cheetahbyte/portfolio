@@ -1,4 +1,5 @@
 import { appStore } from '@/lib/store'
+import { Link } from '@tanstack/react-router';
 import { useStore } from '@tanstack/react-store'
 import { useState, useEffect } from 'react'; // 1. Added useEffect
 
@@ -22,7 +23,7 @@ export default function Header() {
         <div className="max-w-5xl mx-auto px-8 h-20 flex items-center justify-between border-b border-black/[0.03] bg-[#FAFAFA]/80 backdrop-blur-sm">
           <div className="flex items-center gap-3 font-sans text-sm tracking-wide">
             <div className="w-8 h-8 bg-[#0E4D47] flex items-center justify-center text-white font-bold">L</div>
-            <span className="hidden md:inline cursor-pointer" onClick={() => {}}>LEONHARDBREUER.DE</span>
+            <Link className="hidden md:inline cursor-pointer" onClick={() => {}} to='/'>LEONHARDBREUER.DE</Link>
           </div>
           <div className="hidden md:flex items-center gap-4 text-xs font-mono text-gray-400">
              {/* 4. Display the formatted time */}
