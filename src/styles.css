@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 body {
   @apply m-0;
@@ -12,4 +13,41 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Keep the outer frame on <pre> */
+.prose pre {
+  /* your border/padding/rounding here */
+}
+
+/* Remove inner frame from highlight/theme */
+.prose pre code,
+.prose pre code.hljs {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+
+/* app.css */
+.admonition {
+  @apply border-l-4 p-4 mb-4 rounded bg-gray-100 dark:bg-gray-800;
+}
+.admonition.tip {
+  @apply border-green-500 bg-green-50 dark:bg-green-900/20;
+}
+.admonition.warning {
+  @apply border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20;
+}
+/* Style the Anchor Links (#) */
+.anchor-link {
+  @apply no-underline ml-2 text-gray-300 opacity-0 transition-opacity;
+}
+h2:hover .anchor-link, h3:hover .anchor-link {
+  @apply opacity-100;
 }
