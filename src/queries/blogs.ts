@@ -6,8 +6,10 @@ export type BlogListItem = {
 export type BlogMeta = {
 	id: string;
 	title: string;
+	description: string;
 	date: string;
 	tags: string[];
+	image?: string;
 };
 
 type BlogListResponse = {
