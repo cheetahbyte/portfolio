@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start"; // Ensure correct import for TanStack Start
-import Home from "@/sections/Home";
+import Hero from "@/sections/Hero";
+import WorkSection from "@/sections/Work";
+import EssaySection from "@/sections/Essays";
+import StackSection from "@/sections/Stack";
+import ElsewhereSection from "@/sections/Elsewhere";
 
 export type HomeApiResponse = {
 	name: { first: string; last: string };
@@ -10,24 +13,7 @@ export type HomeApiResponse = {
 	phrase: string;
 };
 
-export const getHomeData = createServerFn({ method: "GET" }).handler(
-	async () => {
-		const res = await fetch("https://cms.leonhardbreuer.de/api/home", {
-			headers: { accept: "application/json" },
-		});
-
-		if (!res.ok) {
-			throw new Error(`Failed to fetch home data: ${res.status}`);
-		}
-
-		return (await res.json()) as HomeApiResponse;
-	},
-);
-
 export const Route = createFileRoute("/")({
-	loader: async () => {
-		return await getHomeData();
-	},
 	// Add the head property here
 	head: () => {
 		const title = `Leonhard Breuer | Portfolio`;
@@ -58,6 +44,51 @@ export const Route = createFileRoute("/")({
 });
 
 function IndexPage() {
-	const data = Route.useLoaderData();
-	return <Home data={data} />;
+	return <>
+		<Hero/>
+		<WorkSection works={[
+			{date: new Date(), title: "Centra", description:"Simple fast CMS written in Golang"}
+		]}/>
+		<EssaySection
+  essays={[
+    { date: new Date("2024-01-01"), title: "Essay 1", description: "One", readTime: 5 },
+    { date: new Date("2024-02-01"), title: "Essay 2", description: "Two", readTime: 6 },
+    { date: new Date("2024-03-01"), title: "Essay 3", description: "Three", readTime: 7 },
+    { date: new Date("2024-04-01"), title: "Essay 4", description: "Four", readTime: 8 },
+    { date: new Date("2024-05-01"), title: "Essay 5", description: "Five", readTime: 9 },
+  ]}
+/>
+		<StackSection stack={["Next.js", "Go", "Postgres", "React", "Typescript"]}/>
+		<ElsewhereSection
+			links={[
+				{
+				label: "Email",
+				value: "mail [at] leb [dot] re",
+				onClick: (event) => {
+					event.preventDefault()
+
+					const user = "mail"
+					const domain = "leb.re"
+
+					window.location.href = `mailto:${user}@${domain}`
+				},
+				},
+				{
+				label: "GitHub",
+				value: "cheetahbyte",
+				href: "https://github.com/cheetahbyte",
+				},
+				{
+				label: "Discord",
+				value: "cheetahbyte",
+				href: "https://read.cv/leonhard",
+				},
+				{
+				label: "Mastodon",
+				value: "@leo@hachyderm.io",
+				href: "https://hachyderm.io/@leo",
+				},
+			]}
+		/>
+	</>;
 }

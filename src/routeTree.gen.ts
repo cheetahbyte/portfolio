@@ -15,7 +15,6 @@ import { Route as ImprintRouteImport } from './routes/imprint'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
-import { Route as BlogPostIdRouteImport } from './routes/blog/$postId'
 
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
@@ -47,11 +46,6 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BlogRoute,
 } as any)
-const BlogPostIdRoute = BlogPostIdRouteImport.update({
-  id: '/$postId',
-  path: '/$postId',
-  getParentRoute: () => BlogRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,7 +53,6 @@ export interface FileRoutesByFullPath {
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRoute
-  '/blog/$postId': typeof BlogPostIdRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -67,7 +60,6 @@ export interface FileRoutesByTo {
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRoute
-  '/blog/$postId': typeof BlogPostIdRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -77,21 +69,13 @@ export interface FileRoutesById {
   '/imprint': typeof ImprintRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRoute
-  '/blog/$postId': typeof BlogPostIdRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/blog'
-    | '/imprint'
-    | '/privacy'
-    | '/projects'
-    | '/blog/$postId'
-    | '/blog/'
+  fullPaths: '/' | '/blog' | '/imprint' | '/privacy' | '/projects' | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/imprint' | '/privacy' | '/projects' | '/blog/$postId' | '/blog'
+  to: '/' | '/imprint' | '/privacy' | '/projects' | '/blog'
   id:
     | '__root__'
     | '/'
@@ -99,7 +83,6 @@ export interface FileRouteTypes {
     | '/imprint'
     | '/privacy'
     | '/projects'
-    | '/blog/$postId'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -155,23 +138,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof BlogRoute
     }
-    '/blog/$postId': {
-      id: '/blog/$postId'
-      path: '/$postId'
-      fullPath: '/blog/$postId'
-      preLoaderRoute: typeof BlogPostIdRouteImport
-      parentRoute: typeof BlogRoute
-    }
   }
 }
 
 interface BlogRouteChildren {
-  BlogPostIdRoute: typeof BlogPostIdRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
-  BlogPostIdRoute: BlogPostIdRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 

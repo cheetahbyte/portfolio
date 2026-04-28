@@ -1,53 +1,22 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter-tight/wght.css";
+
+@theme inline {
+  --font-sans: "Inter Variable", Inter, sans-serif;
+  --font-display: "Inter Tight Variable", "Inter Variable", sans-serif;
+}
 
 body {
-  @apply m-0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  @apply m-0 bg-stone-50 text-neutral-900 antialiased;
+  font-family: var(--font-sans);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+section {
+  @apply mb-10;
 }
 
-/* Keep the outer frame on <pre> */
-.prose pre {
-  /* your border/padding/rounding here */
-}
-
-/* Remove inner frame from highlight/theme */
-.prose pre code,
-.prose pre code.hljs {
-  background: transparent !important;
-  border: 0 !important;
-  padding: 0 !important;
-  box-shadow: none !important;
-}
-
-.prose code::before,
-.prose code::after {
-  content: none !important;
-}
-
-/* app.css */
-.admonition {
-  @apply border-l-4 p-4 mb-4 rounded bg-gray-100 dark:bg-gray-800;
-}
-.admonition.tip {
-  @apply border-green-500 bg-green-50 dark:bg-green-900/20;
-}
-.admonition.warning {
-  @apply border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20;
-}
-/* Style the Anchor Links (#) */
-.anchor-link {
-  @apply no-underline ml-2 text-gray-300 opacity-0 transition-opacity;
-}
-h2:hover .anchor-link, h3:hover .anchor-link {
-  @apply opacity-100;
+section#hero {
+  @apply mb-14;
 }
