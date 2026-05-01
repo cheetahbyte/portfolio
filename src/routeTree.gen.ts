@@ -9,21 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ImprintRouteImport } from './routes/imprint'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImprintRoute = ImprintRouteImport.update({
@@ -51,15 +45,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/imprint': typeof ImprintRoute
-  '/privacy': typeof PrivacyRoute
-  '/projects': typeof ProjectsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/imprint': typeof ImprintRoute
-  '/privacy': typeof PrivacyRoute
-  '/projects': typeof ProjectsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -67,47 +59,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/blog': typeof BlogRouteWithChildren
   '/imprint': typeof ImprintRoute
-  '/privacy': typeof PrivacyRoute
-  '/projects': typeof ProjectsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/imprint' | '/privacy' | '/projects' | '/blog/'
+  fullPaths: '/' | '/blog' | '/imprint' | '/privacy-policy' | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/imprint' | '/privacy' | '/projects' | '/blog'
-  id:
-    | '__root__'
-    | '/'
-    | '/blog'
-    | '/imprint'
-    | '/privacy'
-    | '/projects'
-    | '/blog/'
+  to: '/' | '/imprint' | '/privacy-policy' | '/blog'
+  id: '__root__' | '/' | '/blog' | '/imprint' | '/privacy-policy' | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BlogRoute: typeof BlogRouteWithChildren
   ImprintRoute: typeof ImprintRoute
-  PrivacyRoute: typeof PrivacyRoute
-  ProjectsRoute: typeof ProjectsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/imprint': {
@@ -155,8 +131,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRouteWithChildren,
   ImprintRoute: ImprintRoute,
-  PrivacyRoute: PrivacyRoute,
-  ProjectsRoute: ProjectsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
