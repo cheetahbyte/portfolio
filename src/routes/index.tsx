@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
 		const title = `Leonhard Breuer | Portfolio`;
 		const description = "just a simple portfolio";
 		const siteUrl = "https://www.leonhardbreuer.de"; // Update to your actual URL
-		const ogImage = `/opengraph.png`; // Path to your preview image
+		//const ogImage = `/opengraph.png`; // Path to your preview image
 
 		return {
 			meta: [
@@ -34,13 +34,13 @@ export const Route = createFileRoute("/")({
 				{ property: "og:url", content: siteUrl },
 				{ property: "og:title", content: title },
 				{ property: "og:description", content: description },
-				{ property: "og:image", content: ogImage },
+				//{ property: "og:image", content: ogImage },
 				// Twitter
 				{ name: "twitter:card", content: "summary_large_image" },
 				{ name: "twitter:url", content: siteUrl },
 				{ name: "twitter:title", content: title },
 				{ name: "twitter:description", content: description },
-				{ name: "twitter:image", content: ogImage },
+				//{ name: "twitter:image", content: ogImage },
 			],
 		};
 	},
