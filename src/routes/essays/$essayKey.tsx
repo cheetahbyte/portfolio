@@ -81,7 +81,7 @@ function EssayPost() {
 		<div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
 			<article>
 				<header className="mb-8">
-					<h1 className="text-3xl font-semibold tracking-tight text-neutral-900">
+					<h1 className="text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
 						{post.title}
 						<span className="ml-1 text-neutral-400">.</span>
 					</h1>
