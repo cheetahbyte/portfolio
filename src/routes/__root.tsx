@@ -4,14 +4,13 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import {
 	createRootRouteWithContext,
 	HeadContent,
-	Link,
 	Outlet,
 	Scripts,
-	useLocation,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { useStore } from "@tanstack/react-store";
 import type * as React from "react";
+import PullCord from "@/components/PullCord";
+import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
 import appCss from "@/styles.css?url";
 
 /**
@@ -43,14 +42,15 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
  * hydration point for the client.
  */
 function RootComponent() {
-	// Access the queryClient that was created in your router.tsx
 	const { queryClient } = Route.useRouteContext();
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RootDocument>
-				<RootLayout />
-			</RootDocument>
+			<ThemeProvider>
+				<RootDocument>
+					<RootLayout />
+				</RootDocument>
+			</ThemeProvider>
 		</QueryClientProvider>
 	);
 }
@@ -104,11 +104,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
  * Your UI wrapper with Tailwind and state logic.
  */
 function RootLayout() {
+	const { isDark, toggle } = useTheme();
+
 	return (
 		<>
-			<main
-				className={`relative z-10 flex-1 flex flex-col transition-all duration-700 mx-auto px-8 max-w-4xl pt-32 w-full`}
-			>
+			<div className="fixed top-0 right-0 z-50">
+				<PullCord isDark={isDark} onToggle={toggle} />
+			</div>
+			<main className="relative z-10 flex-1 flex flex-col transition-all duration-700 mx-auto px-8 max-w-4xl pt-32 w-full">
 				<Outlet />
 			</main>
 		</>

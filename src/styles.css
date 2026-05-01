@@ -3,13 +3,15 @@
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/inter-tight/wght.css";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme inline {
   --font-sans: "Inter Variable", Inter, sans-serif;
   --font-display: "Inter Tight Variable", "Inter Variable", sans-serif;
 }
 
 body {
-  @apply m-0 bg-stone-50 text-neutral-900 antialiased;
+  @apply m-0 bg-stone-50 text-neutral-900 antialiased dark:bg-stone-950 dark:text-neutral-100;
   font-family: var(--font-sans);
 }
 

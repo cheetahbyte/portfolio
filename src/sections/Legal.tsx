@@ -11,13 +11,13 @@ export default function LegalSection({ stack }: { stack: LegalItem[] }) {
 					key={`${s.name}-${i}`}
 					className="items-baseline gap-4 text-sm flex flex-row flex-wrap"
 				>
-					<span className="text-neutral-500">{s.name}</span>
+					<span className="text-neutral-500 dark:text-neutral-400">{s.name}</span>
 
 					<a
 						href={s.link}
 						target={""}
 						rel={"noreferrer"}
-						className="group inline-flex w-fit items-baseline gap-1 text-sm text-neutral-950"
+						className="group inline-flex w-fit items-baseline gap-1 text-sm text-neutral-950 dark:text-neutral-50"
 					>
 						<span className="underline underline-offset-4 decoration-[1px]">
 							{s.link}

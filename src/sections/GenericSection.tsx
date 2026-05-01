@@ -20,19 +20,19 @@ export default function GenericSection({
 	return (
 		<section id={title.toLowerCase().replaceAll(" ", "-")}>
 			<div className="mb-3 flex items-baseline gap-2">
-				<h2 className="font-display text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+				<h2 className="font-display text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
 					{title}
 				</h2>
 
 				{description && (
-					<p className="text-xs text-neutral-400">— {description}</p>
+					<p className="text-xs text-neutral-400 dark:text-neutral-500">— {description}</p>
 				)}
 			</div>
 
 			{children}
 
 			{(footer || extra) && (
-				<div className="mt-3 flex items-center justify-between gap-3 text-xs text-neutral-500">
+				<div className="mt-3 flex items-center justify-between gap-3 text-xs text-neutral-500 dark:text-neutral-400">
 					<div className="min-w-0">{extra}</div>
 
 					{footer && (
@@ -42,7 +42,7 @@ export default function GenericSection({
 								console.log("GenericSection: footer clicked");
 								onFooterClick?.();
 							}}
-							className="inline-flex shrink-0 cursor-pointer items-center hover:text-neutral-900"
+							className="inline-flex shrink-0 cursor-pointer items-center hover:text-neutral-900 dark:hover:text-neutral-100"
 						>
 							{footer}
 						</button>
