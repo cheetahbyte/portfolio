@@ -73,9 +73,7 @@ function simulate(pts: Point[], dragPt: Point | null) {
 }
 
 export default function PullCord({ isDark, onToggle }: PullCordProps) {
-	const [height, setHeight] = useState(() =>
-		typeof window !== "undefined" ? window.innerHeight : 800,
-	);
+	const [height, setHeight] = useState(800);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const ptsRef = useRef<Point[]>(makePoints());
 	const dragRef = useRef(false);
@@ -93,6 +91,7 @@ export default function PullCord({ isDark, onToggle }: PullCordProps) {
 	}, [isDark]);
 
 	useEffect(() => {
+		setHeight(window.innerHeight);
 		const onResize = () => setHeight(window.innerHeight);
 		window.addEventListener("resize", onResize);
 		return () => window.removeEventListener("resize", onResize);
