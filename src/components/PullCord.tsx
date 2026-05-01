@@ -217,16 +217,31 @@ export default function PullCord({ isDark, onToggle }: PullCordProps) {
 			document.body.style.cursor = "";
 		};
 
+		const onTouchStart = (e: TouchEvent) => {
+			if (!canvasRef.current || e.touches.length !== 1) return;
+			const t = e.touches[0];
+			const { x, y } = toCanvasCoords(t.clientX, t.clientY);
+			if (hitTassel(x, y)) e.preventDefault();
+		};
+
+		const onTouchMove = (e: TouchEvent) => {
+			if (dragRef.current) e.preventDefault();
+		};
+
 		document.addEventListener("pointerdown", onPointerDown);
 		document.addEventListener("pointermove", onPointerMove);
 		document.addEventListener("pointerup", onPointerUp);
 		document.addEventListener("pointercancel", onPointerUp);
+		document.addEventListener("touchstart", onTouchStart, { passive: false });
+		document.addEventListener("touchmove", onTouchMove, { passive: false });
 
 		return () => {
 			document.removeEventListener("pointerdown", onPointerDown);
 			document.removeEventListener("pointermove", onPointerMove);
 			document.removeEventListener("pointerup", onPointerUp);
 			document.removeEventListener("pointercancel", onPointerUp);
+			document.removeEventListener("touchstart", onTouchStart);
+			document.removeEventListener("touchmove", onTouchMove);
 		};
 	}, [onToggle]);
 

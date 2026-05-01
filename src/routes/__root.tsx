@@ -111,7 +111,7 @@ function RootLayout() {
 			<div className="fixed top-0 right-0 z-50">
 				<PullCord isDark={isDark} onToggle={toggle} />
 			</div>
-			<main className="relative z-10 flex-1 flex flex-col transition-all duration-700 mx-auto px-8 max-w-4xl pt-32 w-full">
+			<main className="relative z-10 flex-1 flex flex-col transition-all duration-700 mx-auto px-5 sm:px-8 max-w-4xl pt-10 sm:pt-32 w-full">
 				<Outlet />
 			</main>
 		</>

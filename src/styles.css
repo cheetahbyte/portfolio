@@ -16,9 +16,9 @@ body {
 }
 
 section {
-  @apply mb-10;
+  @apply mb-5 sm:mb-10;
 }
 
 section#hero {
-  @apply mb-14;
+  @apply mb-6 sm:mb-14;
 }
