@@ -1,11 +1,14 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { queryClient } from "@/lib/queryClient";
+import { blogsQuery } from "@/queries/blogs";
+import { projectsQuery } from "@/queries/projects";
 import ElsewhereSection from "@/sections/Elsewhere";
 import EssaySection from "@/sections/Essays";
 import Hero from "@/sections/Hero";
 import LegalSection from "@/sections/Legal";
 import StackSection from "@/sections/Stack";
 import WorkSection from "@/sections/Work";
-
 export type HomeApiResponse = {
 	name: { first: string; last: string };
 	keyfacts: Array<string | number>;
@@ -42,55 +45,38 @@ export const Route = createFileRoute("/")({
 		};
 	},
 	component: IndexPage,
+	loader: async () => {
+		const essays = await queryClient.ensureQueryData(blogsQuery);
+		const projects = await queryClient.ensureQueryData(projectsQuery);
+		return { essays, projects };
+	},
 });
 
 function IndexPage() {
+	const { data: essays } = useSuspenseQuery(blogsQuery);
+	const { data: projects } = useSuspenseQuery(projectsQuery);
+
+	console.log(essays);
 	return (
 		<div className="flex flex-col flex-1">
 			<Hero />
 			<WorkSection
-				works={[
-					{
-						date: new Date(),
-						title: "Centra",
-						description: "Simple fast CMS written in Golang",
-						href: "https://github.com/cheetahbyte/centra",
-					},
-				]}
+				works={projects.map((p) => ({
+					title: p.name,
+					description: p.description,
+					href: p.link,
+					date: new Date(),
+				}))}
 			/>
 			<EssaySection
-				essays={[
-					{
-						date: new Date("2024-01-01"),
-						title: "Essay 1",
-						description: "One",
-						readTime: 5,
-					},
-					{
-						date: new Date("2024-02-01"),
-						title: "Essay 2",
-						description: "Two",
-						readTime: 6,
-					},
-					{
-						date: new Date("2024-03-01"),
-						title: "Essay 3",
-						description: "Three",
-						readTime: 7,
-					},
-					{
-						date: new Date("2024-04-01"),
-						title: "Essay 4",
-						description: "Four",
-						readTime: 8,
-					},
-					{
-						date: new Date("2024-05-01"),
-						title: "Essay 5",
-						description: "Five",
-						readTime: 9,
-					},
-				]}
+				essays={essays.map((es) => ({
+					...es,
+					readTime: 1,
+					title: es.meta.title,
+					description: es.meta.description,
+					date: new Date(es.meta.date),
+					href: `/essays/${es.meta.id}`,
+				}))}
 			/>
 			<StackSection
 				stack={["Next.js", "Go", "Postgres", "React", "Typescript"]}
@@ -99,12 +85,12 @@ function IndexPage() {
 				links={[
 					{
 						label: "Email",
-						value: "mail [at] leb [dot] re",
+						value: "mail [at] leob [dot] re",
 						onClick: (event) => {
 							event.preventDefault();
 
 							const user = "mail";
-							const domain = "leb.re";
+							const domain = "leob.re";
 
 							window.location.href = `mailto:${user}@${domain}`;
 						},
@@ -128,8 +114,8 @@ function IndexPage() {
 						name: "Privacy Policy",
 					},
 					{
-						link: "/imprint",
-						name: "Imprint",
+						link: "/legal",
+						name: "Legal",
 					},
 				]}
 			/>

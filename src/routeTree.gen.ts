@@ -10,19 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as ImprintRouteImport } from './routes/imprint'
+import { Route as LegalRouteImport } from './routes/legal'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as EssaysIndexRouteImport } from './routes/essays/index'
+import { Route as EssaysEssayKeyRouteImport } from './routes/essays/$essayKey'
 
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ImprintRoute = ImprintRouteImport.update({
-  id: '/imprint',
-  path: '/imprint',
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -35,46 +36,76 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => BlogRoute,
+const EssaysIndexRoute = EssaysIndexRouteImport.update({
+  id: '/essays/',
+  path: '/essays/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EssaysEssayKeyRoute = EssaysEssayKeyRouteImport.update({
+  id: '/essays/$essayKey',
+  path: '/essays/$essayKey',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/imprint': typeof ImprintRoute
+  '/blog': typeof BlogRoute
+  '/legal': typeof LegalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/blog/': typeof BlogIndexRoute
+  '/essays/$essayKey': typeof EssaysEssayKeyRoute
+  '/essays/': typeof EssaysIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/imprint': typeof ImprintRoute
+  '/blog': typeof BlogRoute
+  '/legal': typeof LegalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/blog': typeof BlogIndexRoute
+  '/essays/$essayKey': typeof EssaysEssayKeyRoute
+  '/essays': typeof EssaysIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/imprint': typeof ImprintRoute
+  '/blog': typeof BlogRoute
+  '/legal': typeof LegalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/blog/': typeof BlogIndexRoute
+  '/essays/$essayKey': typeof EssaysEssayKeyRoute
+  '/essays/': typeof EssaysIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog' | '/imprint' | '/privacy-policy' | '/blog/'
+  fullPaths:
+    | '/'
+    | '/blog'
+    | '/legal'
+    | '/privacy-policy'
+    | '/essays/$essayKey'
+    | '/essays/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/imprint' | '/privacy-policy' | '/blog'
-  id: '__root__' | '/' | '/blog' | '/imprint' | '/privacy-policy' | '/blog/'
+  to:
+    | '/'
+    | '/blog'
+    | '/legal'
+    | '/privacy-policy'
+    | '/essays/$essayKey'
+    | '/essays'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog'
+    | '/legal'
+    | '/privacy-policy'
+    | '/essays/$essayKey'
+    | '/essays/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRouteWithChildren
-  ImprintRoute: typeof ImprintRoute
+  BlogRoute: typeof BlogRoute
+  LegalRoute: typeof LegalRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  EssaysEssayKeyRoute: typeof EssaysEssayKeyRoute
+  EssaysIndexRoute: typeof EssaysIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -86,11 +117,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/imprint': {
-      id: '/imprint'
-      path: '/imprint'
-      fullPath: '/imprint'
-      preLoaderRoute: typeof ImprintRouteImport
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -107,31 +138,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/': {
-      id: '/blog/'
-      path: '/'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof BlogRoute
+    '/essays/': {
+      id: '/essays/'
+      path: '/essays'
+      fullPath: '/essays/'
+      preLoaderRoute: typeof EssaysIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/essays/$essayKey': {
+      id: '/essays/$essayKey'
+      path: '/essays/$essayKey'
+      fullPath: '/essays/$essayKey'
+      preLoaderRoute: typeof EssaysEssayKeyRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface BlogRouteChildren {
-  BlogIndexRoute: typeof BlogIndexRoute
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogIndexRoute: BlogIndexRoute,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BlogRoute: BlogRouteWithChildren,
-  ImprintRoute: ImprintRoute,
+  BlogRoute: BlogRoute,
+  LegalRoute: LegalRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  EssaysEssayKeyRoute: EssaysEssayKeyRoute,
+  EssaysIndexRoute: EssaysIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

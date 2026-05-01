@@ -30,7 +30,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
 			{ title: "Leonhard Breuer" },
 		],
-		links: [{ rel: "stylesheet", href: appCss },],
+		links: [{ rel: "stylesheet", href: appCss }],
 	}),
 	// This wraps the entire application
 	component: RootComponent,
@@ -60,16 +60,15 @@ function RootComponent() {
  * This is the physical HTML shell.
  */
 function RootDocument({ children }: { children: React.ReactNode }) {
-
 	return (
 		<html lang="en">
 			<head>
 				<HeadContent />
-				<script
+				{/*<script
 					src="https://cupcake.orbiq.one/api/script.js"
 					data-site-id="1"
 					defer
-				></script>
+				></script>*/}
 				<link
 					rel="icon"
 					href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>"
@@ -105,16 +104,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
  * Your UI wrapper with Tailwind and state logic.
  */
 function RootLayout() {
-
 	return (
 		<>
-
 			<main
-				className={`relative z-10 flex-1 flex flex-col transition-all duration-700 mx-auto px-8 max-w-4xl pt-32 w-1/2`}
+				className={`relative z-10 flex-1 flex flex-col transition-all duration-700 mx-auto px-8 max-w-4xl pt-32 w-full`}
 			>
 				<Outlet />
 			</main>
-
 		</>
 	);
 }

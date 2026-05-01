@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import EssayItem, { type Essay } from "@/components/EssayItem";
 import GenericSection from "./GenericSection";
@@ -29,10 +30,19 @@ export default function EssaySection({ essays = [] }: EssaySectionProps) {
 						: `${essays.length - 3} older essays +`
 					: undefined
 			}
-			onFooterClick={() => setShowAll((prev) => !prev)}
+			onFooterClick={() => {
+				console.log("clicked");
+				setShowAll((prev) => !prev);
+			}}
 			extra={
 				<p className="text-xs text-neutral-500">
-					Subscribe by <a href="/">RSS</a>
+					Subscribe by{" "}
+					<a
+						href="/essays"
+						className="underline underline-offset-4 decoration-[1px]"
+					>
+						RSS
+					</a>
 				</p>
 			}
 		>

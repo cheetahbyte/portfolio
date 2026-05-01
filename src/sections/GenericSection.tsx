@@ -31,23 +31,24 @@ export default function GenericSection({
 
 			{children}
 
-			{footer && (
-				<div className="mt-3 flex items-center gap-3 text-xs text-neutral-500">
-					{/*<div className="h-px flex-1 bg-neutral-200" />*/}
+			{(footer || extra) && (
+				<div className="mt-3 flex items-center justify-between gap-3 text-xs text-neutral-500">
+					<div className="min-w-0">{extra}</div>
 
-					<button
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							if (onFooterClick) onFooterClick();
-						}}
-						className="relative z-10 isolate transition hover:text-neutral-900 cursor-pointer ml-auto"
-					>
-						{footer}
-					</button>
+					{footer && (
+						<button
+							type="button"
+							onClick={() => {
+								console.log("GenericSection: footer clicked");
+								onFooterClick?.();
+							}}
+							className="inline-flex shrink-0 cursor-pointer items-center hover:text-neutral-900"
+						>
+							{footer}
+						</button>
+					)}
 				</div>
 			)}
-			{extra && <>{extra}</>}
 		</section>
 	);
 }
