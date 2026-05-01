@@ -103,7 +103,7 @@ function EssayPost() {
 				</header>
 
 				<div
-					className="prose prose-neutral max-w-none text-sm text-neutral-600 prose-headings:font-display prose-headings:font-semibold prose-headings:text-neutral-900 prose-a:text-neutral-900 prose-a:underline-offset-2"
+					className="prose prose-neutral max-w-none text-sm text-neutral-600 dark:text-neutral-400 prose-headings:font-display prose-headings:font-semibold prose-headings:text-neutral-900 dark:prose-headings:text-neutral-100 prose-a:text-neutral-900 dark:prose-a:text-neutral-100 prose-a:underline-offset-2"
 					dangerouslySetInnerHTML={{ __html: html }}
 				/>
 				<p className="text-neutral-400 mt-5 mb-5"></p>
