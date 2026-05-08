@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { queryClient } from "@/lib/queryClient";
-import { blogsQuery } from "@/queries/blogs";
+import { blogsQuery, homeQuery } from "@/queries/blogs";
 import { projectsQuery } from "@/queries/projects";
 import ElsewhereSection from "@/sections/Elsewhere";
 import EssaySection from "@/sections/Essays";
@@ -46,20 +46,21 @@ export const Route = createFileRoute("/")({
 	},
 	component: IndexPage,
 	loader: async () => {
+		const home = await queryClient.ensureQueryData(homeQuery);
 		const essays = await queryClient.ensureQueryData(blogsQuery);
 		const projects = await queryClient.ensureQueryData(projectsQuery);
-		return { essays, projects };
+		return { essays, projects, home };
 	},
 });
 
 function IndexPage() {
 	const { data: essays } = useSuspenseQuery(blogsQuery);
 	const { data: projects } = useSuspenseQuery(projectsQuery);
+	const { data: home } = useSuspenseQuery(homeQuery);
 
-	console.log(essays);
 	return (
 		<div className="flex flex-col flex-1">
-			<Hero />
+			<Hero name={home.name} />
 			<WorkSection
 				works={projects.map((p) => ({
 					title: p.name,
@@ -78,34 +79,30 @@ function IndexPage() {
 					href: `/essays/${es.meta.id}`,
 				}))}
 			/>
-			<StackSection
-				stack={["Next.js", "Go", "Postgres", "React", "Typescript"]}
-			/>
+			<StackSection stack={home.stack} />
 			<ElsewhereSection
-				links={[
-					{
-						label: "Email",
-						value: "mail [at] leob [dot] re",
-						onClick: (event) => {
-							event.preventDefault();
+				links={home.elsewhere.map((link) => {
+					if (link.parts && link.parts.length > 0) {
+						const parts = link.parts;
+						return {
+							label: link.name,
+							value: link.text,
+							onClick: (event) => {
+								event.preventDefault();
 
-							const user = "mail";
-							const domain = "leob.re";
+								const user = parts[0];
+								const domain = parts[1];
 
-							window.location.href = `mailto:${user}@${domain}`;
-						},
-					},
-					{
-						label: "GitHub",
-						value: "cheetahbyte",
-						href: "https://github.com/cheetahbyte",
-					},
-					{
-						label: "Discord",
-						value: "cheetahbyte",
-						href: "https://discord.com/users/545238456645845023",
-					},
-				]}
+								window.location.href = `mailto:${user}@${domain}`;
+							},
+						};
+					} else
+						return {
+							label: link.name,
+							value: link.text,
+							href: link.link,
+						};
+				})}
 			/>
 			<LegalSection
 				stack={[
