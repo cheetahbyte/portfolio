@@ -60,7 +60,7 @@ function IndexPage() {
 
 	return (
 		<div className="flex flex-col flex-1">
-			<Hero name={home.name} />
+			<Hero name={home.name} description={home.description} />
 			<WorkSection
 				works={projects.map((p) => ({
 					title: p.name,
