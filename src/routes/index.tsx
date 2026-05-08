@@ -1,8 +1,6 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { queryClient } from "@/lib/queryClient";
-import { blogsQuery, homeQuery } from "@/queries/blogs";
-import { projectsQuery } from "@/queries/projects";
+import { getBlogs, getHome } from "@/queries/blogs";
+import { getProjectData } from "@/queries/projects";
 import ElsewhereSection from "@/sections/Elsewhere";
 import EssaySection from "@/sections/Essays";
 import Hero from "@/sections/Hero";
@@ -46,17 +44,17 @@ export const Route = createFileRoute("/")({
 	},
 	component: IndexPage,
 	loader: async () => {
-		const home = await queryClient.ensureQueryData(homeQuery);
-		const essays = await queryClient.ensureQueryData(blogsQuery);
-		const projects = await queryClient.ensureQueryData(projectsQuery);
+		const [home, essays, projects] = await Promise.all([
+			getHome(),
+			getBlogs(),
+			getProjectData(),
+		]);
 		return { essays, projects, home };
 	},
 });
 
 function IndexPage() {
-	const { data: essays } = useSuspenseQuery(blogsQuery);
-	const { data: projects } = useSuspenseQuery(projectsQuery);
-	const { data: home } = useSuspenseQuery(homeQuery);
+	const { essays, projects, home } = Route.useLoaderData();
 
 	return (
 		<div className="flex flex-col flex-1">
