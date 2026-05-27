@@ -24,11 +24,11 @@ function ImprintPage() {
 				<section className="space-y-1">
 					<p className="uppercase text-xs tracking-wider">Address</p>
 					<p className="text-neutral-900">
-						Leonhard Breuer
+						Leonhard Breuer <br />
+						c/o COCENTER
 						<br />
-						Buchenweg 7
-						<br />
-						63741 Aschaffenburg
+						Koppoldstr. 1 <br />
+						86551 Aichach
 					</p>
 				</section>
 
