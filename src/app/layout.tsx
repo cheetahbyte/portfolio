@@ -1,7 +1,30 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 
 import { SiteShell } from "@/components/SiteShell";
 import "./globals.css";
+
+const inter = localFont({
+  src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
+  variable: "--font-inter",
+  display: "swap",
+  weight: "100 900",
+});
+
+const interTight = localFont({
+  src: "../../node_modules/@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2",
+  variable: "--font-inter-tight",
+  display: "swap",
+  weight: "100 900",
+});
+
+const themeScript = `(() => {
+  try {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.classList.toggle("dark", stored ? stored === "dark" : prefersDark);
+  } catch {}
+})();`;
 
 export const metadata: Metadata = {
   title: "Leonhard Breuer | Portfolio",
@@ -23,7 +46,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${interTight.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script>{themeScript}</script>
+      </head>
       <body className="flex min-h-screen w-full flex-col transition-colors duration-700 ease-in-out">
         <SiteShell>{children}</SiteShell>
       </body>

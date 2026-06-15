@@ -2,11 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type PullCordProps = {
-  isDark: boolean;
-  onToggle: () => void;
-};
-
 type Point = {
   x: number;
   y: number;
@@ -87,7 +82,8 @@ function simulate(pts: Point[], dragPt: Point | null) {
   }
 }
 
-export function PullCord({ isDark, onToggle }: PullCordProps) {
+export function PullCord() {
+  const [isDark, setIsDark] = useState(false);
   const [height, setHeight] = useState(800);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ptsRef = useRef<Point[]>(makePoints());
@@ -100,9 +96,31 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
   const rafRef = useRef<number>(0);
   const lastTimeRef = useRef(0);
   const isDarkRef = useRef(isDark);
+  const reducedMotionRef = useRef(false);
+  const startLoopRef = useRef<() => void>(() => {});
+  const settleFramesRef = useRef(0);
+
+  const toggleTheme = useCallback(() => {
+    setIsDark((current) => {
+      const next = !current;
+      document.documentElement.classList.toggle("dark", next);
+      localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     lastTimeRef.current = performance.now();
+  }, []);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+    const next = stored ? stored === "dark" : prefersDark;
+    document.documentElement.classList.toggle("dark", next);
+    setIsDark(next);
   }, []);
 
   useEffect(() => {
@@ -169,7 +187,35 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
   );
 
   useEffect(() => {
+    draw(isDark);
+  }, [draw, isDark]);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => {
+      reducedMotionRef.current = media.matches;
+    };
+
+    updateMotionPreference();
+    media.addEventListener("change", updateMotionPreference);
+    return () => media.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const stop = () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = 0;
+      }
+    };
+
     const loop = (now: number) => {
+      if (document.hidden || reducedMotionRef.current) {
+        draw(isDarkRef.current);
+        rafRef.current = 0;
+        return;
+      }
+
       const dt = Math.min((now - lastTimeRef.current) / 16.67, 3);
       lastTimeRef.current = now;
 
@@ -178,11 +224,52 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
       }
 
       draw(isDarkRef.current);
+
+      if (!dragRef.current) {
+        settleFramesRef.current -= 1;
+
+        if (settleFramesRef.current <= 0) {
+          settleFramesRef.current = 0;
+          rafRef.current = 0;
+          return;
+        }
+      }
+
       rafRef.current = requestAnimationFrame(loop);
     };
 
-    rafRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(rafRef.current);
+    const start = () => {
+      if (rafRef.current || document.hidden || reducedMotionRef.current) {
+        draw(isDarkRef.current);
+        return;
+      }
+
+      lastTimeRef.current = performance.now();
+      rafRef.current = requestAnimationFrame(loop);
+    };
+
+    startLoopRef.current = start;
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        stop();
+        return;
+      }
+
+      if (dragRef.current || settleFramesRef.current > 0) {
+        start();
+        return;
+      }
+
+      draw(isDarkRef.current);
+    };
+
+    draw(isDarkRef.current);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, [draw]);
 
   useEffect(() => {
@@ -217,6 +304,7 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
         lastDragYRef.current = y;
         toggleArmedRef.current = true;
         document.body.style.cursor = "grabbing";
+        startLoopRef.current();
       }
     };
 
@@ -248,7 +336,7 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
 
       if (pulled >= TOGGLE_PULL && toggleArmedRef.current) {
         toggleArmedRef.current = false;
-        onToggle();
+        toggleTheme();
       }
     };
 
@@ -263,7 +351,9 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
       tip.px = tip.x;
       tip.py = tip.y - velocity * 1.5;
       dragPtRef.current = null;
+      settleFramesRef.current = 120;
       document.body.style.cursor = "";
+      startLoopRef.current();
     };
 
     document.addEventListener("pointerdown", onPointerDown);
@@ -277,7 +367,7 @@ export function PullCord({ isDark, onToggle }: PullCordProps) {
       document.removeEventListener("pointerup", onPointerUp);
       document.removeEventListener("pointercancel", onPointerUp);
     };
-  }, [onToggle]);
+  }, [toggleTheme]);
 
   return (
     <div className="flex flex-col items-center">
