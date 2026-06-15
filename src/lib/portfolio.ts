@@ -52,7 +52,7 @@ export const portfolio = {
     },
     {
       label: "X (Twitter)",
-      value: "cheetahbyte",
+      value: "@cheetahbyte",
       href: "https://x.com/cheetahbyte",
     },
     {

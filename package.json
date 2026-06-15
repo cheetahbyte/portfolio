@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "deploy:pages": "pnpm build && pnpm dlx wrangler pages deploy out",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write"
