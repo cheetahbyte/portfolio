@@ -50,5 +50,15 @@ export const portfolio = {
       value: "cheetahbyte",
       href: "https://discord.com/users/545238456645845023",
     },
+    {
+      label: "X (Twitter)",
+      value: "cheetahbyte",
+      href: "https://x.com/cheetahbyte",
+    },
+    {
+      label: "Bluesky",
+      value: "@leonhardbreuer.de",
+      href: "https://bsky.app/profile/leonhardbreuer.de",
+    },
   ],
 };
