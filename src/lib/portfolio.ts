@@ -51,6 +51,11 @@ export const portfolio = {
       href: "https://discord.com/users/545238456645845023",
     },
     {
+      label: "LinkedIn",
+      value: "leonhard-breuer",
+      href: "https://www.linkedin.com/in/leonhard-breuer/",
+    },
+    {
       label: "X (Twitter)",
       value: "@cheetahbyte",
       href: "https://x.com/cheetahbyte",
