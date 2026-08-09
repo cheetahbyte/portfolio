@@ -4,7 +4,6 @@ title: "Beyond Code Mode"
 description: "A design for combining tool discovery, retrieval, and a small query language"
 date: "2026-08-09"
 ---
-# Beyond Code Mode: Querying Tools Instead of Exposing Them
 
 Ten tools is easy. Hundreds from GitHub, Linear, Slack, a couple of databases, whatever internal APIs you've wrapped in MCP is not.
 
