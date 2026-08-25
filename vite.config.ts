@@ -13,7 +13,14 @@ export default defineConfig({
     devtools(),
     cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        autoSubfolderIndex: true,
+        crawlLinks: true,
+        failOnError: true,
+      },
+    }),
     solidPlugin({ ssr: true }),
   ],
 })

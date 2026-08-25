@@ -31,17 +31,20 @@ If you prefer not to use Tailwind CSS:
 4. Remove `@tailwindcss/vite` and `tailwindcss` from `package.json`
 
 
-## Deploy to Cloudflare Workers
+## Deploy to Cloudflare Pages
 
-This project uses the Cloudflare Vite plugin (configured in `vite.config.ts`) and `wrangler.jsonc`:
+The build prerenders every route to static files in `dist/client`.
 
-1. Install Wrangler: `npm install -g wrangler`
-2. Authenticate: `wrangler login`
-3. Deploy: `npx wrangler deploy`
+For a Cloudflare Pages project, use:
 
-For production env vars, run `wrangler secret put MY_VAR` for each secret listed in `.env.example`. Public (non-secret) vars go in `wrangler.jsonc` under `vars`.
+- Build command: `npm run build`
+- Build output directory: `dist/client`
 
-KV, D1, R2, and Durable Object bindings are configured in `wrangler.jsonc` — see https://developers.cloudflare.com/workers/wrangler/configuration/.
+Or deploy from the command line after `wrangler login`:
+
+```bash
+npm run deploy
+```
 
 
 
