@@ -8,7 +8,7 @@
     "build": "vite build",
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler pages deploy"
+    "deploy": "rm -rf .wrangler/deploy && npm run build && wrangler pages deploy dist/client"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

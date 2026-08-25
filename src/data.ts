@@ -18,8 +18,8 @@ export const portfolio = {
 }
 
 export const thoughts = [
-  { id: 'codemode', title: 'Beyond Code Mode', description: 'A design for combining tool discovery, retrieval, and a small query language', date: '2026-08-09', readTime: 6 },
-  { id: 'designing-centra', title: 'Designing Centra', description: 'How I created a minimal CMS', date: '2026-01-11', readTime: 4 },
+  // { id: 'codemode', title: 'Beyond Code Mode', description: 'A design for combining tool discovery, retrieval, and a small query language', date: '2026-08-09', readTime: 6 },
+  // { id: 'designing-centra', title: 'Designing Centra', description: 'How I created a minimal CMS', date: '2026-01-11', readTime: 4 },
 ]
 
 const thoughtFiles = import.meta.glob<string>("../content/thoughts/*.md", {
@@ -28,9 +28,4 @@ const thoughtFiles = import.meta.glob<string>("../content/thoughts/*.md", {
   import: "default",
 });
 
-export const thoughtMarkdown = Object.fromEntries(
-  Object.entries(thoughtFiles).map(([path, source]) => [
-    path.split("/").pop()!.replace(/\.md$/, ""),
-    source,
-  ]),
-) as Record<string, string>;
+export const thoughtMarkdown = {} as Record<string, string>;
