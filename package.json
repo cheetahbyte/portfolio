@@ -8,7 +8,7 @@
     "build": "vite build",
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler pages deploy dist/client"
+    "deploy": "npm run build && wrangler pages deploy --config wrangler.jsonc"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.53.1",
