@@ -5,8 +5,8 @@ Welcome to your new TanStack Start app!
 To run this application:
 
 ```bash
-npm install
-npm run dev
+bun install --frozen-lockfile
+bun run dev
 ```
 
 # Building For Production
@@ -14,7 +14,7 @@ npm run dev
 To build this application for production:
 
 ```bash
-npm run build
+bun run build
 ```
 
 ## Styling
@@ -37,13 +37,16 @@ The build prerenders every route to static files in `dist/client`.
 
 For a Cloudflare Pages project, use:
 
-- Build command: `npm run build`
+- Build command: `bun install --frozen-lockfile && bun run build`
 - Build output directory: `dist/client`
+- Build environment variables (production and preview): `BUN_VERSION=1.4.0` and `SKIP_DEPENDENCY_INSTALL=1`
+
+Set these in the Pages dashboard. Skipping automatic dependency installation lets the build command explicitly install with Bun.
 
 Or deploy from the command line after `wrangler login`:
 
 ```bash
-npm run deploy
+bun run deploy
 ```
 
 

@@ -1,6 +1,7 @@
 {
   "name": "portfolio",
   "private": true,
+  "packageManager": "bun@1.4.0",
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 3000",
@@ -8,7 +9,7 @@
     "build": "vite build",
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
-    "deploy": "rm -rf .wrangler/deploy && npm run build && wrangler pages deploy dist/client"
+    "deploy": "rm -rf .wrangler/deploy && bun run build && wrangler pages deploy dist/client"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
@@ -28,14 +29,6 @@
     "vite": "^8.2.2",
     "vite-plugin-solid": "^2.11.14",
     "wrangler": "^4.125.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "lightningcss",
-      "sharp",
-      "workerd"
-    ]
   },
   "allowScripts": {
     "esbuild": true,
