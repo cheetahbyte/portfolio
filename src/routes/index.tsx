@@ -10,7 +10,7 @@ function Home() {
     <>
       <article class="letter" aria-label="About Leonhard Breuer">
         <p id="intro">
-          <strong>{portfolio.name}.</strong> {portfolio.description.join(" ")}.
+          <strong class="icon-label"><InlineIcon name="Wave" />{portfolio.name}.</strong> {portfolio.description.join(" ")}.
         </p>
         <p id="work">
           My work includes{" "}
