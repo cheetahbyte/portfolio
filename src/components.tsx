@@ -78,46 +78,18 @@ function formatDate(date: string) {
 
 export function SiteShell(props: { children: JSX.Element }) {
   return (
-    <div class="relative flex min-h-screen flex-col">
-      <ThemeToggle />
-      <main class="mx-auto w-full max-w-3xl flex-1 px-8 pt-20 max-sm:px-5 max-sm:pt-8">
+    <div class="site-shell">
+      <a class="skip-link" href="#main">Skip to content</a>
+      <main id="main" class="page-column" tabIndex={-1}>
         {props.children}
       </main>
-      <footer class="mx-auto w-full max-w-5xl px-8 pt-24 pb-10 max-sm:px-5 max-sm:pt-16 max-sm:pb-8">
-        <ul class="flex justify-center gap-4 text-sm text-muted">
-          <li>
-            Privacy Policy{" "}
-            <Link
-              class="text-fg underline underline-offset-4"
-              to="/privacy-policy"
-            >
-              /privacy-policy
-            </Link>
-          </li>
-          <li>
-            Legal{" "}
-            <Link class="text-fg underline underline-offset-4" to="/legal">
-              /legal
-            </Link>
-          </li>
-        </ul>
+      <footer id="footer" class="page-column site-footer">
+        <Link to="/">Leonhard Breuer</Link>
+        <nav aria-label="Legal">
+          <Link to="/privacy-policy">Privacy policy</Link>
+          <Link to="/legal">Legal</Link>
+        </nav>
       </footer>
     </div>
-  );
-}
-
-function ThemeToggle() {
-  const toggle = () => {
-    const dark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  };
-  return (
-    <button
-      class="fixed top-3 right-4 z-10 cursor-pointer border-0 bg-transparent text-xl text-muted"
-      onClick={toggle}
-      aria-label="Toggle color theme"
-    >
-      ◐
-    </button>
   );
 }

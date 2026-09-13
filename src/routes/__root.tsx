@@ -33,11 +33,10 @@ function RootComponent() {
   return (
     <html
       lang="en"
-      class="min-h-full bg-bg font-sans text-fg transition-colors duration-500"
+      class="min-h-full bg-bg font-sans text-muted"
     >
       <head>
         <HydrationScript />
-        <script>{`try { const t = localStorage.getItem('theme'); document.documentElement.classList.toggle('dark', t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches) } catch {}`}</script>
         <HeadContent />
       </head>
       <body class="min-h-full bg-bg">

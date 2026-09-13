@@ -1,55 +1,53 @@
-import { createFileRoute, Link } from "@tanstack/solid-router";
-import { Elsewhere, GenericSection } from "../sections";
-import { WorkList, ThoughtList } from "../components";
+import { createFileRoute } from "@tanstack/solid-router";
+import { For } from "solid-js";
 import { portfolio } from "../data";
-import type { JSX } from "solid-js/jsx-runtime";
+import { InlineIcon } from "../icons";
 
 export const Route = createFileRoute("/")({ component: Home });
 
-function Home(): JSX.Element {
+function Home() {
   return (
-    <div class="w-full">
-      <section id="hero" class="mb-14 max-sm:mb-12">
-        <h1 class="text-2xl/tight font-semibold tracking-[-0.04em]">
-          {portfolio.name}
-          <span class="ml-1 text-faint">.</span>
-        </h1>
-        <p class="mt-3 text-base text-muted">
-          {portfolio.description[0]}{" "}
-          <mark class="rounded-sm bg-mark px-1.5 py-0.5 text-fg">
-            {portfolio.description[1]}
-          </mark>{" "}
-          {portfolio.description[2]}
+    <>
+      <article class="letter" aria-label="About Leonhard Breuer">
+        <p id="intro">
+          <strong>{portfolio.name}.</strong> {portfolio.description.join(" ")}.
         </p>
-      </section>
-      <GenericSection title="Selected Work">
-        <WorkList />
-      </GenericSection>
-      {/*<GenericSection
-        title="Writing"
-        description="essays, mostly"
-        extra={
-          <span>
-            Read all at <LinkToThoughts />
-          </span>
-        }
-      >
-        <ThoughtList />
-      </GenericSection>*/}
-      <GenericSection title="Stack">
-        <ul class="flex flex-wrap gap-2">
-          {portfolio.stack.map((item) => (
-            <li class="rounded-full border border-line px-2.5 py-1 text-xs text-muted">
-              {item}
-            </li>
-          ))}
-        </ul>
-      </GenericSection>
-      <Elsewhere />
-    </div>
+        <p id="work">
+          My work includes{" "}
+          <For each={portfolio.works}>
+            {(work, i) => (
+              <>
+                {i() === 0 ? "" : i() === portfolio.works.length - 1 ? ", and " : ", "}
+                <a href={work.href} target="_blank" rel="noreferrer">{work.title}</a>
+                {", "}{work.description}
+              </>
+            )}
+          </For>.
+        </p>
+        <p id="stack">
+          I build with{" "}
+          <For each={portfolio.stack}>
+            {(item, i) => (
+              <>
+                {i() === 0 ? "" : i() === portfolio.stack.length - 1 ? ", and " : ", "}
+                <a class="icon-label" href={item.href} target="_blank" rel="noreferrer"><InlineIcon name={item.label} />{item.label}</a>
+              </>
+            )}
+          </For>.
+        </p>
+        <p id="elsewhere">
+          You can find me on{" "}
+          <For each={portfolio.elsewhere.filter((link) => link.label !== "Email")}>
+            {(link, i) => (
+              <>
+                {i() === 0 ? "" : i() === portfolio.elsewhere.length - 2 ? ", or " : ", "}
+                <a class="icon-label" href={link.href} target="_blank" rel="noreferrer"><InlineIcon name={link.label} />{link.label}</a>
+              </>
+            )}
+          </For>.
+          <br />Or <a class="icon-label" href={portfolio.elsewhere[0].href}><InlineIcon name="Email" />write a mail</a>.
+        </p>
+      </article>
+    </>
   );
-}
-
-function LinkToThoughts(): JSX.Element {
-  return <Link to="/thoughts">/thoughts</Link>;
 }
