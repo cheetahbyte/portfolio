@@ -13,7 +13,7 @@ function Home() {
           <strong class="icon-label"><InlineIcon name="Wave" />{portfolio.name}.</strong> {portfolio.description.join(" ")}.
         </p>
         <p id="work">
-          My side projects includes{" "}
+          My side projects are{" "}
           <For each={portfolio.works}>
             {(work, i) => (
               <>
