@@ -85,7 +85,8 @@ export function SiteShell(props: { children: JSX.Element }) {
       </main>
       <footer id="footer" class="page-column site-footer">
         <Link to="/">Leonhard Breuer</Link>
-        <nav aria-label="Legal">
+        <nav aria-label="Site">
+          <Link to="/thoughts">Thoughts</Link>
           <Link to="/legal">Legal</Link>
         </nav>
       </footer>

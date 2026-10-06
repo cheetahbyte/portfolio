@@ -1,9 +1,11 @@
-import { createFileRoute } from "@tanstack/solid-router";
-import { For } from "solid-js";
-import { portfolio } from "../data";
+import { createFileRoute, Link } from "@tanstack/solid-router";
+import { For, Show } from "solid-js";
+import { portfolio, thoughts } from "../data";
 import { InlineIcon } from "../icons";
 
 export const Route = createFileRoute("/")({ component: Home });
+
+const latestThoughts = thoughts.slice(0, 3);
 
 function Home() {
   return (
@@ -24,6 +26,20 @@ function Home() {
             )}
           </For>.
         </p>
+        <Show when={latestThoughts.length > 0}>
+          <p id="thoughts">
+            Lately I wrote{" "}
+            <For each={latestThoughts}>
+              {(thought, i) => (
+                <>
+                  {i() === 0 ? "" : i() < latestThoughts.length - 1 ? ", " : latestThoughts.length === 2 ? " and " : ", and "}
+                  <Link to="/thoughts/$thoughtId" params={{ thoughtId: thought.id }}>{thought.title}</Link>
+                </>
+              )}
+            </For>
+            . More in <Link to="/thoughts">thoughts</Link>.
+          </p>
+        </Show>
         <p id="stack">
           I build with{" "}
           <For each={portfolio.stack}>

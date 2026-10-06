@@ -17,6 +17,24 @@ To build this application for production:
 bun run build
 ```
 
+## Writing posts
+
+Add a Markdown file to `content/thoughts/`. The file name becomes the URL (`content/thoughts/my-post.md` is served at `/thoughts/my-post`).
+
+```md
+---
+title: My Post
+description: One line shown in the list and under the title
+date: 2026-10-06
+---
+
+First paragraph, shown slightly larger.
+
+## A section
+```
+
+`title`, `description`, and `date` are required; the build fails without them. Posts are sorted newest first, and read time is estimated from the word count.
+
 ## Styling
 
 This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.

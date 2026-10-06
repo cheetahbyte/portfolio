@@ -25,15 +25,31 @@ export const portfolio = {
   ],
 }
 
-export const thoughts = [
-  // { id: 'codemode', title: 'Beyond Code Mode', description: 'A design for combining tool discovery, retrieval, and a small query language', date: '2026-08-09', readTime: 6 },
-  // { id: 'designing-centra', title: 'Designing Centra', description: 'How I created a minimal CMS', date: '2026-01-11', readTime: 4 },
-]
-
 const thoughtFiles = import.meta.glob<string>("../content/thoughts/*.md", {
   eager: true,
   query: "?raw",
   import: "default",
 });
 
-export const thoughtMarkdown = {} as Record<string, string>;
+const posts = Object.entries(thoughtFiles).map(([path, source]) => {
+  const id = path.split("/").pop()!.replace(/\.md$/, "");
+  const [, frontmatter = "", body = source] = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/) ?? [];
+  const fields = Object.fromEntries(
+    frontmatter.split(/\r?\n/).flatMap((line) => {
+      const match = line.match(/^(\w+):\s*(.*)$/);
+      return match ? [[match[1], match[2].trim().replace(/^(["'])(.*)\1$/, "$2")]] : [];
+    }),
+  );
+  for (const key of ["title", "description", "date"]) {
+    if (!fields[key]) throw new Error(`content/thoughts/${id}.md is missing "${key}" in its frontmatter`);
+  }
+  const words = body.split(/\s+/).filter(Boolean).length;
+  return {
+    meta: { id, title: fields.title, description: fields.description, date: fields.date, readTime: Math.max(1, Math.round(words / 220)) },
+    body,
+  };
+});
+
+export const thoughts = posts.map((post) => post.meta).sort((a, b) => b.date.localeCompare(a.date));
+
+export const thoughtMarkdown = Object.fromEntries(posts.map((post) => [post.meta.id, post.body])) as Record<string, string>;
