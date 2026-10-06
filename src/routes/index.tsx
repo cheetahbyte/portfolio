@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
+import { formatDate, MarginNote, Signature } from "../components";
 import { portfolio, thoughts } from "../data";
 import { InlineIcon } from "../icons";
 
@@ -20,7 +21,7 @@ function Home() {
             {(work, i) => (
               <>
                 {i() === 0 ? "" : i() === portfolio.works.length - 1 ? ", and " : ", "}
-                <a href={work.href} target="_blank" rel="noreferrer">{work.title}</a>
+                <a href={work.href} target="_blank" rel="noreferrer"><MarginNote text={`${new URL(work.href).host}${new URL(work.href).pathname.replace(/\/$/, "")} · ${work.year}`} />{work.title}</a>
                 {", "}{work.description}
               </>
             )}
@@ -33,7 +34,7 @@ function Home() {
               {(thought, i) => (
                 <>
                   {i() === 0 ? "" : i() < latestThoughts.length - 1 ? ", " : latestThoughts.length === 2 ? " and " : ", and "}
-                  <Link to="/thoughts/$thoughtId" params={{ thoughtId: thought.id }}>{thought.title}</Link>
+                  <Link to="/thoughts/$thoughtId" params={{ thoughtId: thought.id }}><MarginNote text={`${formatDate(thought.date)} · ${thought.readTime} min read`} />{thought.title}</Link>
                 </>
               )}
             </For>
@@ -64,6 +65,7 @@ function Home() {
           <br />Or <a class="icon-label" href={portfolio.elsewhere[0].href}><InlineIcon name="Email" />write a mail</a>.
         </p>
       </article>
+      <Signature />
     </>
   );
 }

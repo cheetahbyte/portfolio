@@ -1,4 +1,4 @@
-import { For, Show, type JSX } from "solid-js";
+import { For, Show, onCleanup, onMount, type JSX } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 import { portfolio, thoughts } from "./data";
 
@@ -69,11 +69,71 @@ export function ThoughtList(props: { all?: boolean }) {
 }
 
 const portfolioThoughts = thoughts.slice(0, 3);
-function formatDate(date: string) {
+export function formatDate(date: string) {
   return new Date(`${date}T00:00:00`).toLocaleDateString("en-US", {
     month: "short",
     year: "numeric",
   });
+}
+
+// Text comes from a data attribute via CSS so it stays out of the link's text and accessible name.
+export function MarginNote(props: { text: string }) {
+  let host!: HTMLSpanElement;
+  onMount(() => {
+    const link = host.closest("a")!;
+    const column = link.closest(".page-column")!;
+    const pointer = matchMedia("(hover: hover) and (pointer: fine)");
+    let hovering = false;
+    const update = () => {
+      const active = (hovering && pointer.matches) || link.matches(":focus-visible");
+      if (!active) {
+        delete host.dataset.placed;
+        window.removeEventListener("resize", update);
+        window.removeEventListener("scroll", update, true);
+        return;
+      }
+      const line = link.getClientRects()[0];
+      const bounds = column.getBoundingClientRect();
+      const width = host.offsetWidth;
+      const viewport = document.documentElement.clientWidth;
+      const left = bounds.right + 40 + width <= viewport - 16 ? bounds.right + 40 : bounds.left - 40 - width >= 16 ? bounds.left - 40 - width : null;
+      if (left === null || !line) {
+        delete host.dataset.placed;
+        return;
+      }
+      host.style.left = `${left}px`;
+      host.style.top = `${line.top + (line.height - host.offsetHeight) / 2}px`;
+      host.dataset.placed = "true";
+      window.addEventListener("resize", update);
+      window.addEventListener("scroll", update, true);
+    };
+    const enter = () => { hovering = true; update(); };
+    const leave = () => { hovering = false; update(); };
+    link.addEventListener("mouseenter", enter);
+    link.addEventListener("mouseleave", leave);
+    link.addEventListener("focus", update);
+    link.addEventListener("blur", update);
+    onCleanup(() => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+      link.removeEventListener("mouseenter", enter);
+      link.removeEventListener("mouseleave", leave);
+      link.removeEventListener("focus", update);
+      link.removeEventListener("blur", update);
+    });
+  });
+  return <span ref={host} class="margin-note" data-note={props.text} aria-hidden="true" />;
+}
+
+export function Signature() {
+  return (
+    <svg class="signature" viewBox="0 0 96 32" fill="none" aria-hidden="true">
+      <path
+        pathLength="1"
+        d="M4 24c6-14 10-20 13-18s-3 18 1 18 7-14 11-14-1 12 3 12 6-9 9-9-2 8 2 8 5-6 8-6 0 5 4 5c6 0 14-7 22-9 6-1.5 9 0 9 2"
+      />
+    </svg>
+  );
 }
 
 export function SiteShell(props: { children: JSX.Element }) {
